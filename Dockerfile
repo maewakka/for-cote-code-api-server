@@ -9,7 +9,7 @@ ENV GRADLE_VERSION=8.8
 ENV GRADLE_HOME=/opt/gradle/gradle-${GRADLE_VERSION}
 ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
-# Gradle 설치
+# Gradle 및 Python3 설치
 RUN apt-get update && \
     apt-get install -y wget unzip python3 && \
     wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
@@ -30,6 +30,11 @@ FROM openjdk:17.0.2-slim
 
 # 타임존 설정
 ENV TZ=Asia/Seoul
+
+# Python3 설치
+RUN apt-get update && \
+    apt-get install -y python3 && \
+    rm -rf /var/lib/apt/lists/*
 
 # 작업 디렉토리 설정
 WORKDIR /app
