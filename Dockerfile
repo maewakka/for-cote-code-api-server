@@ -11,7 +11,7 @@ ENV PATH=${GRADLE_HOME}/bin:${PATH}
 
 # Gradle 설치
 RUN apt-get update && \
-    apt-get install -y wget unzip && \
+    apt-get install -y wget unzip python3 && \
     wget https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -P /tmp && \
     unzip -d /opt/gradle /tmp/gradle-${GRADLE_VERSION}-bin.zip && \
     rm /tmp/gradle-${GRADLE_VERSION}-bin.zip
