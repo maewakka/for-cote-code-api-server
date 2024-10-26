@@ -20,7 +20,10 @@ public class JavaRunnerImpl implements Runner {
         String javaFileName = uuid + ".java";
         String className = uuid;
 
-        String modifiedCode = code.replaceFirst("public class [a-zA-Z0-9_]+", "public class " + className);
+        // 코드에 필요한 import 추가
+        String modifiedCode = "import java.util.*;\nimport java.io.*;\n\n" +
+                code.replaceFirst("public class [a-zA-Z0-9_]+", "public class " + className);
+
         Files.write(Paths.get(javaFileName), modifiedCode.getBytes());
 
         try {
