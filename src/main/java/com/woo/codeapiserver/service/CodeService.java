@@ -52,7 +52,6 @@ public class CodeService {
                 }
             }
 
-            // runner.runCode 호출 시 예외 처리
             try {
                 return runner.get().runCode(codeReqDto.getCode(), codeReqDto.getInput());
             } catch (Exception e) {
@@ -65,7 +64,8 @@ public class CodeService {
         });
 
         try {
-            return future.get(30, TimeUnit.SECONDS);
+            // Future에서 30초로 제한 시간 설정
+            return future.get(10, TimeUnit.SECONDS);
         } catch (TimeoutException e) {
             log.error("코드 실행 타임아웃", e);
             return CodeRespDto.builder()
@@ -76,9 +76,10 @@ public class CodeService {
             log.error("Unexpected error during code execution", e);
             return null;
         } finally {
-            executorService.shutdown();
+            runner.get().stopCode();
         }
     }
+
 
 
     @Transactional

@@ -5,5 +5,6 @@ import com.woo.codeapiserver.dto.code.CodeRespDto;
 public interface Runner {
 
     CodeRespDto runCode(String code, String input) throws Exception;
+    void stopCode();
 
 }
