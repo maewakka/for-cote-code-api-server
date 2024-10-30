@@ -27,6 +27,8 @@ public class CodeService {
     public CodeRespDto runCode(CodeReqDto codeReqDto) {
         final Optional<Runner> runner;
 
+        log.info("REQ : {}", codeReqDto);
+
         switch (codeReqDto.getLanguage()) {
             case JAVA -> runner = Optional.of(new JavaRunnerImpl());
             case PYTHON -> runner = Optional.of(new PythonRunnerImpl());
@@ -49,6 +51,7 @@ public class CodeService {
                             .build());
                 } else {
                     code.updateCode(codeReqDto.getCode());
+                    codeRepository.save(code);
                 }
             }
 
