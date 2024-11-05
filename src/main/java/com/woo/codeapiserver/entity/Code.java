@@ -23,7 +23,7 @@ public class Code {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
+    private String userId;
     private String code;
     private Long problemId;
     @Enumerated(EnumType.STRING)
@@ -35,8 +35,8 @@ public class Code {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Code(String email, String code, Long problemId, Language language) {
-        this.email = email;
+    public Code(String userId, String code, Long problemId, Language language) {
+        this.userId = userId;
         this.code = code;
         this.problemId = problemId;
         this.language = language;

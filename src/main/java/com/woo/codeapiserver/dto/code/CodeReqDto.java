@@ -8,7 +8,7 @@ import lombok.Data;
 public class CodeReqDto {
 
     private Language language;
-    private String email;
+    private String id;
     private String code;
     private String input;
     @JsonProperty("problem_id")

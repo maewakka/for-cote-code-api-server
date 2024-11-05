@@ -29,7 +29,7 @@ public class CodeController {
     }
 
     @GetMapping("/code")
-    public String getCode(@RequestParam("email") String email, @RequestParam("problemId") Long problemId, @RequestParam("language") Language language) {
-        return codeService.getCode(email, problemId, language);
+    public String getCode(@RequestParam("id") String id, @RequestParam("problemId") Long problemId, @RequestParam("language") Language language) {
+        return codeService.getCode(id, problemId, language);
     }
 }

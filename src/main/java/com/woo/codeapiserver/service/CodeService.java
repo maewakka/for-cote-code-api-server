@@ -37,15 +37,15 @@ public class CodeService {
 
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Future<CodeRespDto> future = executorService.submit(() -> {
-            if (codeReqDto.getEmail() != null) {
-                Code code = codeRepository.findCodeByEmailAndProblemIdAndLanguage(
-                        codeReqDto.getEmail(),
+            if (codeReqDto.getId() != null) {
+                Code code = codeRepository.findCodeByUserIdAndProblemIdAndLanguage(
+                        codeReqDto.getId(),
                         codeReqDto.getProblemId(),
                         codeReqDto.getLanguage()).orElse(null);
                 if (code == null) {
                     codeRepository.save(Code.builder()
                             .code(codeReqDto.getCode())
-                            .email(codeReqDto.getEmail())
+                            .userId(codeReqDto.getId())
                             .language(codeReqDto.getLanguage())
                             .problemId(codeReqDto.getProblemId())
                             .build());
@@ -87,9 +87,9 @@ public class CodeService {
 
     @Transactional
     public void saveCode(CodeReqDto codeReqDto){
-        if(codeReqDto.getEmail() != null) {
-            Code code = codeRepository.findCodeByEmailAndProblemIdAndLanguage(codeReqDto.getEmail(), codeReqDto.getProblemId(), codeReqDto.getLanguage()).orElse(null);
-            if(code == null) codeRepository.save(Code.builder().code(codeReqDto.getCode()).email(codeReqDto.getEmail()).language(codeReqDto.getLanguage()).problemId(codeReqDto.getProblemId()).build());
+        if(codeReqDto.getId() != null) {
+            Code code = codeRepository.findCodeByUserIdAndProblemIdAndLanguage(codeReqDto.getId(), codeReqDto.getProblemId(), codeReqDto.getLanguage()).orElse(null);
+            if(code == null) codeRepository.save(Code.builder().code(codeReqDto.getCode()).userId(codeReqDto.getId()).language(codeReqDto.getLanguage()).problemId(codeReqDto.getProblemId()).build());
             else {
                 code.updateCode(codeReqDto.getCode());
             }
@@ -97,8 +97,8 @@ public class CodeService {
     }
 
     @Transactional(readOnly = true)
-    public String getCode(String email, Long problemId, Language language) {
-        Code code = codeRepository.findCodeByEmailAndProblemIdAndLanguage(email, problemId, language).orElse(null);
+    public String getCode(String id, Long problemId, Language language) {
+        Code code = codeRepository.findCodeByUserIdAndProblemIdAndLanguage(id, problemId, language).orElse(null);
 
         return code == null ? null : code.getCode();
     }

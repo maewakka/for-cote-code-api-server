@@ -8,6 +8,6 @@ import java.util.Optional;
 
 public interface CodeRepository extends JpaRepository<Code, Long> {
 
-    Optional<Code> findCodeByEmailAndProblemIdAndLanguage(String email, Long problemId, Language language);
+    Optional<Code> findCodeByUserIdAndProblemIdAndLanguage(String userId, Long problemId, Language language);
 
 }
